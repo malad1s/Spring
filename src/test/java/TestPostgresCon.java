@@ -72,6 +72,8 @@ public class TestPostgresCon {
         Member mem= new Member();
         mem.setId(5);
         new DAOTeamsImplPostgres().updateTeamMember(5,10);
+        mem.setId(5);
+        new DAOTeamsImplPostgres().updateTeamMember(5,null);
     }
 
 

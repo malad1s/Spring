@@ -1,19 +1,22 @@
 package org.example.DAO;
 
 import org.example.DBConnection.PostgresConnectionPool;
+import org.example.models.Member;
 import org.example.models.Team;
 
 import java.sql.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 public class DAOTeamsImplPostgres implements DAOTeams{
 
-    private final String updateTeam="Update public.\"API_team\" set name=? WHERE id=?";
+    private final String getTeam="Select * FROM public.\"API_team\" WHERE id=?";
     private final String createTeam="INSERT INTO public.\"API_team\" (name,description,created_at) VALUES (?,?,?) RETURNING id";
     private final String deleteTeam="DELETE FROM public.\"API_team\" WHERE id=?";
-    private final String getTeam="Select * FROM public.\"API_team\" WHERE id=?";
+
     private final String updateUserRole="Update public.\"user_user\" set role=? WHERE id=?";
     private final String updateUserTeam="Update public.\"user_user\" set team_id=? WHERE id=?";
+    private final String updateTeam="Update public.\"API_team\" set name=? WHERE id=?";
     @Override
     public int createTeam(String name, String description) {
         Connection con= null;
@@ -116,13 +119,13 @@ public class DAOTeamsImplPostgres implements DAOTeams{
     }
 
     @Override
-    public void updateTeamMember(int idMember, int idTeam) {
+    public void updateTeamMember(int idMember, Integer idTeam) {
         Connection con= null;
         PreparedStatement prst=null;
         try {
             con = PostgresConnectionPool.getConnection();
             prst=con.prepareStatement(updateUserTeam);
-            prst.setInt(1,idTeam);
+            prst.setObject(1,idTeam);
             prst.setInt(2, idMember);
             prst.executeUpdate();
 
@@ -138,13 +141,13 @@ public class DAOTeamsImplPostgres implements DAOTeams{
         }
     }
     @Override
-    public void updateRoleToMember(int idMember, int idRole) {
+    public void updateRoleToMember(int idMember, Integer idRole) {
         Connection con= null;
         PreparedStatement prst=null;
         try {
             con = PostgresConnectionPool.getConnection();
             prst=con.prepareStatement(updateUserRole);
-            prst.setInt(1, idRole);
+            prst.setObject(1, idRole);
             prst.setInt(2, idMember);
             prst.executeUpdate();
         } catch (SQLException e) {
@@ -157,6 +160,11 @@ public class DAOTeamsImplPostgres implements DAOTeams{
 
             }
         }
+    }
+
+    @Override
+    public List<Member> getAllMembers(int idTeam) {
+        return null;
     }
 
 

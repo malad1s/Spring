@@ -1,6 +1,9 @@
 package org.example.DAO;
 
+import org.example.models.Member;
 import org.example.models.Team;
+
+import java.util.List;
 
 public interface DAOTeams {
 
@@ -9,6 +12,8 @@ public interface DAOTeams {
      Team getTeam(int id);
      void updateTeam(String name, int id);
 
-     void updateTeamMember(int idMember, int idTeam);
-     void updateRoleToMember(int idMember, int idRole);
+     void updateTeamMember(int idMember, Integer idTeam);
+     void updateRoleToMember(int idMember, Integer idRole);
+
+     List<Member> getAllMembers(int idTeam);
 }
