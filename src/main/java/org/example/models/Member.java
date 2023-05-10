@@ -1,7 +1,7 @@
 package org.example.models;
 
-public class User {
-    long id;
+public class Member {
+    int id;
     String password;
     String last_login;
     boolean is_superuser;
@@ -13,5 +13,12 @@ public class User {
     boolean is_active;
     String date_joined;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 }
